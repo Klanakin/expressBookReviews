@@ -9,8 +9,9 @@ let users = [
     { username: "user3", password: "password3" },
 ];
 
-const isValid = (username) => { //returns boolean
-//write code to check is the username is valid
+
+const isValid = (username) => { // returns boolean
+// Write code to check is the username is valid
     let userAlreadyExists = users.filter((user)=>{
         return user.username === username
         });
@@ -18,8 +19,9 @@ const isValid = (username) => { //returns boolean
         return userAlreadyExists.length > 0;
     }
 
-const authenticatedUser = (username, password) => { //returns boolean
-//write code to check if username and password match the one we have in records.
+
+const authenticatedUser = (username, password) => { // returns boolean
+// Write code to check if username and password match the one we have in records.
 let validusers = users.filter((user)=>{
     return (user.username === username && user.password === password)
     });
@@ -28,10 +30,9 @@ let validusers = users.filter((user)=>{
 }
 
 
-//only registered users can login
+// Only registered users can login
 regd_users.post("/login", (req,res) => {
-
-    //Write your code here
+    // Write your code here
     const username = req.body.username;
     const password = req.body.password;
     if (!username || !password) {
@@ -47,10 +48,10 @@ regd_users.post("/login", (req,res) => {
     }
 });
 
-//post a review
-regd_users.put("/auth/review/:isbn", (req, res) => {
 
-//Write your code here
+// Post a review
+regd_users.put("/auth/review/:isbn", (req, res) => {
+// Write your code here
     const isbn = req.params.isbn;
     const review = req.body.review;
     const username = req.session.authorization.username;
@@ -64,7 +65,8 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     }
 });
 
-//delete a review
+
+// Delete a review
 regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     const username = req.session.authorization.username;
@@ -77,6 +79,7 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         return res.status(404).json({message: `ISBN ${isbn} not found`});
     }
 });
+
 
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;

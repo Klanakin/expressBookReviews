@@ -17,21 +17,32 @@ public_users.get('/',function (req, res) {
 
 
 // Get book details based on ISBN (Promise and Callback)
-function getByISBN(isbn) {
+function getBookByISBN(isbn) {
     return new Promise((resolve, reject) => {
-        let isbnNumber = parseInt(isbn);
-        if (books[isbnNumber]) {
-            resolve(books[isbnNumber]);
+        let isbnInt = parseInt(isbn);
+        if (books[isbnInt]) {
+            resolve(books[isbnInt]);
         } else {
             reject({status:404, message:`ISBN ${isbn} not found`});
         }});}
 public_users.get('/isbn/:isbn',function (req, res) {
     //Write your code here
-    getByISBN(req.params.isbn)
+    getBookByISBN(req.params.isbn)
     .then(
-        result => res.send(result),
+        booksByISBN => res.send(booksByISBN),
         error => res.status(error.status).json({message: error.message})
     );
+});
+
+
+// Get book details based on author (Promise and Callback)
+public_users.get('/author/:author',function (req, res) {
+    //Write your code here
+    const author = req.params.author;
+      getBooks()
+      .then((books) => Object.values(books))
+      .then((bookEntries) => bookEntries.filter((book) => book.author === author))
+      .then((booksByAuthor) => res.send(booksByAuthor));
 });
 
 
@@ -52,31 +63,14 @@ public_users.post("/register", (req,res) => {
 });
 
 
-// Get book details based on ISBN
-public_users.get('/isbn/:isbn',function (req, res) {
-    //Write your code here
-    const isbn = req.params.isbn;
-    res.send(books[isbn]);
- });
-
-  
-// Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-    //Write your code here
-    const author = req.params.author;
-    const bookEntries = Object.entries(books);
-    const booksByAuthor = bookEntries.filter(([key, value]) => value.author === author);
-    return res.send(booksByAuthor);
-});
-
-
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
     //Write your code here
     const title = req.params.title;
-    const bookEntries = Object.entries(books);
-    const booksByTitle = bookEntries.filter(([key, value]) => value.title === title);
-    return res.send(booksByTitle);
+      getBooks()
+      .then((books) => Object.values(books))
+      .then((bookEntries) => bookEntries.filter((book) => book.title === title))
+      .then((booksByTitle) => res.send(booksByTitle));
 });
 
 
