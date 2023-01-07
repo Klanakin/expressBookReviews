@@ -27,10 +27,6 @@ let validusers = users.filter((user)=>{
     return validusers.length > 0
 }
 
-//get all users
-regd_users.get("/fetch-all-users", (req, res) => {
-    return res.send(users)
-})
 
 //only registered users can login
 regd_users.post("/login", (req,res) => {
@@ -51,7 +47,7 @@ regd_users.post("/login", (req,res) => {
     }
 });
 
-// Add a book review
+//post a review
 regd_users.put("/auth/review/:isbn", (req, res) => {
 
 //Write your code here
@@ -61,20 +57,21 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     if (books[isbn]) {
         let book = books[isbn];
         book.reviews[username] = review;
-        return res.status(200).send("Review successfully posted");
+        return res.status(200).send("Review has been posted successfully");
     }
     else {
-        return res.status(404).json({message: `ISBN ${isbn} not found`});
+        return res.status(404).json({message: `ISBN: ${isbn} was not found`});
     }
 });
 
+//delete a review
 regd_users.delete("/auth/review/:isbn", (req, res) => {
     const isbn = req.params.isbn;
     const username = req.session.authorization.username;
     if (books[isbn]) {
         let book = books[isbn];
         delete book.reviews[username];
-        return res.status(200).send("Review successfully deleted");
+        return res.status(200).send(`${username}'s review has been deleted`);
     }
     else {
         return res.status(404).json({message: `ISBN ${isbn} not found`});
