@@ -11,22 +11,20 @@ let users = [
 
 const isValid = (username) => { //returns boolean
 //write code to check is the username is valid
-    (username)=>{
-        let userExists = users.filter((user)=>{
+    let userAlreadyExists = users.filter((user)=>{
         return user.username === username
         });
 
-        return userExists.length > 0;
+        return userAlreadyExists.length > 0;
     }
-}
 
-const authenticatedUser = (username,password) => { //returns boolean
+const authenticatedUser = (username, password) => { //returns boolean
 //write code to check if username and password match the one we have in records.
-    let validusers = users.filter((user)=>{
-        return (user.username === username && user.password === password)
+let validusers = users.filter((user)=>{
+    return (user.username === username && user.password === password)
     });
 
-    return validusers.length > 0;
+    return validusers.length > 0
 }
 
 //get all users
