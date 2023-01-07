@@ -10,7 +10,7 @@ function getBooks() {
     return new Promise((resolve, reject) => {
         resolve(books);
     });}
-public_users.get('/',function (req, res) {
+public_users.get('/', function (req, res) {
     //Write your code here
     getBooks().then((books) => res.send(JSON.stringify(books)));
 });
@@ -25,7 +25,7 @@ function getBookByISBN(isbn) {
         } else {
             reject({status:404, message:`ISBN ${isbn} not found`});
         }});}
-public_users.get('/isbn/:isbn',function (req, res) {
+public_users.get('/isbn/:isbn', function (req, res) {
     //Write your code here
     getBookByISBN(req.params.isbn)
     .then(
@@ -36,7 +36,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
 
 
 // Search books by author (Promise and Callback)
-public_users.get('/author/:author',function (req, res) {
+public_users.get('/author/:author', function (req, res) {
     //Write your code here
     const author = req.params.author;
       getBooks()
@@ -63,8 +63,8 @@ public_users.post("/register", (req,res) => {
 });
 
 
-// Search books by title
-public_users.get('/title/:title',function (req, res) {
+// Search books by title (Promise and Callback)
+public_users.get('/title/:title', function (req, res) {
     //Write your code here
     const title = req.params.title;
       getBooks()
@@ -75,7 +75,7 @@ public_users.get('/title/:title',function (req, res) {
 
 
 // Get book review
-public_users.get('/review/:isbn',function (req, res) {
+public_users.get('/review/:isbn', function (req, res) {
     //Write your code here
     const isbn = req.params.isbn;
     const reviewByISBN = books[isbn].reviews
