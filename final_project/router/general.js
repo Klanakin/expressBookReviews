@@ -5,7 +5,7 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
 
-// Get the book list available in the shop (Promise and Callback)
+// Get ALL books (Promise and Callback)
 function getBooks() {
     return new Promise((resolve, reject) => {
         resolve(books);
@@ -16,7 +16,7 @@ public_users.get('/',function (req, res) {
 });
 
 
-// Get book details based on ISBN (Promise and Callback)
+// Search book by ISBN (Promise and Callback)
 function getBookByISBN(isbn) {
     return new Promise((resolve, reject) => {
         let isbnInt = parseInt(isbn);
@@ -35,7 +35,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
 });
 
 
-// Get book details based on author (Promise and Callback)
+// Search books by author (Promise and Callback)
 public_users.get('/author/:author',function (req, res) {
     //Write your code here
     const author = req.params.author;
@@ -63,7 +63,7 @@ public_users.post("/register", (req,res) => {
 });
 
 
-// Get all books based on title
+// Search books by title
 public_users.get('/title/:title',function (req, res) {
     //Write your code here
     const title = req.params.title;
@@ -74,7 +74,7 @@ public_users.get('/title/:title',function (req, res) {
 });
 
 
-//  Get book review
+// Get book review
 public_users.get('/review/:isbn',function (req, res) {
     //Write your code here
     const isbn = req.params.isbn;
